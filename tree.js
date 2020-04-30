@@ -24,9 +24,13 @@ function render(startX, startY, len, angle, width) {
     ctx.restore();
     return;
   }
-
-  render(0, -len, len * (branchScaleRatio + (Math.random() / 5 - 0.10)), this.randBetween(minAngle, maxAngle), width * 0.8);
-  render(0, -len, len * (branchScaleRatio + (Math.random() / 5 - 0.10)), -this.randBetween(minAngle, maxAngle), width * 0.8);
+  if (!randomLenghtCheck) {
+    render(0, -len, len * branchScaleRatio, this.randBetween(minAngle, maxAngle), width * 0.8);
+    render(0, -len, len * branchScaleRatio, -this.randBetween(minAngle, maxAngle), width * 0.8);
+  } else {
+    render(0, -len, len * (branchScaleRatio + (Math.random() / 5 - 0.10)), this.randBetween(minAngle, maxAngle), width * 0.8);
+    render(0, -len, len * (branchScaleRatio + (Math.random() / 5 - 0.10)), -this.randBetween(minAngle, maxAngle), width * 0.8);
+  }
   ctx.restore();
   }
 
@@ -40,6 +44,7 @@ function callRender() {
   minAngle = Number(document.getElementById("minAngle").value);
   maxAngle = Number(document.getElementById("maxAngle").value);
   branchScaleRatio = Number(document.getElementById("branchScaleRatio").value);
+  randomLenghtCheck = document.getElementById("randomLenght").checked;
 
   document.getElementById("labelMin").innerText = minAngle+" Minimum angle";
   document.getElementById("labelMax").innerText = maxAngle+" Maximum angle";
